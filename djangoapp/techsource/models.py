@@ -1,3 +1,7 @@
-from django.db import models
+from django.contrib import admin
 
-# Create your models here.
+from techsource.Models.endereco import Endereco
+from techsource.Models.item_pedido import Item_Pedido
+from techsource.Models.pedido import Pedido
+from techsource.Models.produto import Produto
+from techsource.Models.usuario import Usuario
