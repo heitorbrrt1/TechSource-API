@@ -6,3 +6,4 @@ tzdata==2024.1
 djangorestframework
 djangorestframework-simplejwt
 Pillow
+brazilcep

@@ -29,8 +29,8 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-class Usuario(models.Model):
-    #username = None
+class Usuario(AbstractUser):
+    username = models.TextField()
     nome = models.CharField(max_length=100, null=False, blank=False)
     email = models.EmailField(max_length=254, unique=True, error_messages={
                               'unique': "O email cadastrado já existe."})
