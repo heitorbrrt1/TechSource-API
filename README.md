@@ -1,6 +1,12 @@
 # TechSource-API
 
-TechSource-API é o backend de um e-commerce chamado TechSource, construído utilizando Django Rest Framework para fornecer uma plataforma de serviços de tecnologia. Ele utiliza Docker para a facilitação do ambiente de desenvolvimento e implementação, Nginx como servidor web e Postgres como banco de dados.
+**TechSource-API** é o backend para o e-commerce [TechSource](https://github.com/heitorbrrt1/TechSource-UI). Ele foi desenvolvido utilizando as seguintes tecnologias:
+
+- **Docker**: Uma plataforma para desenvolvimento, envio e execução de aplicativos em contêineres.
+- **Django**: Um framework web em Python que facilita a criação de aplicativos robustos e escaláveis.
+- **Django Rest Framework**: Uma extensão do Django que simplifica a criação de APIs RESTful.
+- **Nginx**: Um servidor web e proxy reverso que melhora o desempenho e a segurança.
+- **Postgres**: Um sistema de gerenciamento de banco de dados relacional.
 
 ## Configuração do Ambiente
 
