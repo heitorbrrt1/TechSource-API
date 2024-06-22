@@ -1,4 +1,5 @@
 from django.db import models
+from .midia import Midia
 
 class Produto(models.Model):
     nome = models.CharField(max_length=100, null=True)
