@@ -8,7 +8,6 @@ from techsource.Models.item_pedido import Item_Pedido
 from techsource.Models.pedido import Pedido
 from techsource.Models.usuario import Usuario
 
-
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
@@ -25,3 +24,16 @@ class UsuarioSerializer(serializers.ModelSerializer):
             validated_data['password'] = make_password(validated_data['password'])
         return super().update(instance, validated_data)
 
+class EnderecoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Endereco
+        fields = '__all__'
+
+    def validate_cep(self, value):
+        value = value.replace('-', '').replace('.', '')
+        try:
+            cep_valido = get_address_from_cep(value)
+        except Exception:
+            raise serializers.ValidationError("CEP inválido ou não encontrado.")
+        
+        return value

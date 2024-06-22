@@ -12,8 +12,13 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from techsource.Models.usuario import Usuario
-from techsource.serializers import UsuarioSerializer
+from techsource.Models.endereco import Endereco
+from techsource.Models.item_pedido import Item_Pedido
+from techsource.Models.pedido import Pedido
+from techsource.Models.produto import Produto
 
+from techsource.serializers import UsuarioSerializer
+from techsource.serializers import EnderecoSerializer
 def index(request):
     return render(request, 'techsource/index.html')
 
@@ -45,6 +50,27 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.is_valid(raise_exception=True)
         usuario = serializer.save()
+
+    def get_permissions(self):
+        try:
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            return [permission() for permission in self.permission_classes]
+
+class EnderecoViewSet(viewsets.ModelViewSet):
+    queryset = Endereco.objects.all()
+    serializer_class = EnderecoSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes_by_action = {
+        'create': [IsAdminUser], 
+        'list': [AllowAny], 
+        'retrieve': [
+        AllowAny], 
+        'update': [IsAdminUser], 
+        'partial_update': [IsAdminUser], 
+        'destroy': [IsAdminUser]}
+
+    filter_backends = [OrderingFilter]
 
     def get_permissions(self):
         try:

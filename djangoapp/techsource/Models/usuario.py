@@ -46,7 +46,7 @@ class Usuario(AbstractUser):
             error_messages={'unique': "O CPF cadastrado já existe."})
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nome', 'cpf']
+    REQUIRED_FIELDS = ['nome']
 
     objects = UsuarioManager()
 
