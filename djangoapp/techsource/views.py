@@ -19,6 +19,10 @@ from techsource.Models.produto import Produto
 
 from techsource.serializers import UsuarioSerializer
 from techsource.serializers import EnderecoSerializer
+from techsource.serializers import Item_PedidoSerializer
+from techsource.serializers import PedidoSerializer
+from techsource.serializers import ProdutoSerializer
+
 def index(request):
     return render(request, 'techsource/index.html')
 
@@ -70,6 +74,66 @@ class EnderecoViewSet(viewsets.ModelViewSet):
         'partial_update': [IsAdminUser], 
         'destroy': [IsAdminUser]}
 
+    filter_backends = [OrderingFilter]
+
+    def get_permissions(self):
+        try:
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            return [permission() for permission in self.permission_classes]
+
+class ProdutoViewSet(viewsets.ModelViewSet):
+    queryset = Produto.objects.all()
+    serializer_class = ProdutoSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes_by_action = {
+        'create': [IsAdminUser],
+        'list': [AllowAny],
+        'retrieve': [AllowAny],
+        'update': [IsAdminUser],
+        'partial_update': [IsAdminUser],
+        'destroy': [IsAdminUser]
+    }
+    filter_backends = [OrderingFilter]
+
+    def get_permissions(self):
+        try:
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            return [permission() for permission in self.permission_classes]
+
+class PedidoViewSet(viewsets.ModelViewSet):
+    queryset = Pedido.objects.all()
+    serializer_class = PedidoSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes_by_action = {
+        'create': [IsAuthenticated],
+        'list': [IsAdminUser],
+        'retrieve': [IsAuthenticated],
+        'update': [IsAuthenticated],
+        'partial_update': [IsAuthenticated],
+        'destroy': [IsAdminUser]
+    }
+    filter_backends = [OrderingFilter]
+
+    def get_permissions(self):
+        try:
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            return [permission() for permission in self.permission_classes]
+
+class Item_PedidoViewSet(viewsets.ModelViewSet):
+    queryset = Item_Pedido.objects.all()
+    serializer_class = Item_PedidoSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes_by_action = {
+        'create': [IsAuthenticated],
+        'list': [IsAdminUser],
+        'retrieve': [IsAuthenticated],
+        'update': [IsAuthenticated],
+        'partial_update': [IsAuthenticated],
+        'destroy': [IsAdminUser]
+    }
     filter_backends = [OrderingFilter]
 
     def get_permissions(self):
