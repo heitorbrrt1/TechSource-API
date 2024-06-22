@@ -1,6 +1,21 @@
 services:
+  nginx:
+    container_name: nginx-ts
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./djangoapp:/djangoapp
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf 
+      - ./nginx/logs:/var/log/nginx 
+      - ./data/web/static:/data/web/static
+      - ./data/web/media:/data/web/media
+    depends_on:
+      - djangoapp
   djangoapp:
-    container_name: djangoapp
+    container_name: djangoapp-ts
     build:
       context: .
     ports:
@@ -14,7 +29,7 @@ services:
     depends_on:
       - psql
   psql:
-    container_name: psql
+    container_name: psql-ts
     image: postgres:16.3-alpine3.20
     volumes:
       - ./data/postgres/data:/var/lib/postgresql/data/
